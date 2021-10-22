@@ -1,0 +1,25 @@
+Aceasta aplicatie trebuie sa traga dintr-un backend o lista de TODOs specifice unui anumit user si le salveaza in state-ul global, folosind Redux. Fetch-ul listei de task-uri poate fi facut de la adresa: https://jsonplaceholder.typicode.com/todos
+
+In URL-ul aplicatie tale o sa fie prezent un query param "userId" dupa care se va filtra lista de task-uri.
+
+Exemplu: localhost:3000/?userId=2 o sa afiseze doar task-urile pentru userId = 2
+
+Totul o sa fie incorporta intr-o singura pagina unde trebuie sa fie prezent un field de input text cu care se pot adauga noi task-uri in lista de TODOs. Fiecare task trebuie sa aiba asociate doua butoane: "DONE" si "REMOVE".
+
+DONE: aplica un efect de change background color sau orice alt styling custom pe care il consideri tu potrivit pentru un task completat;
+REMOVE: sterge task-ul respectiv din lista;
+BONUS:
+
+Lista de task-uri poate sa fie persistenta (poti sa o salvezi in local storage)
+Backend-ul poate sa fie o aplicatie separata scria in Javascript sau Golang
+
+
+IMPORTANT POINTS:
+
+Pentru styling indicat este sa folosesti styled-components, iar in legatura cu design-ul, nu este asta important.
+Cele doua actiuni de DONE si REMOVE o sa fie generate de un hook custom:
+const { finishTask, removeTask } = useTaskActions();
+
+finishTask(taskId);
+removeTask(taskId);
+Aplicatia trebuie urcata pe Github intr-un repository cu README care sa explice pasii necesari pentru rularea proiectului.
