@@ -9,10 +9,16 @@ export const Container = styled.div`
    margin: 0.3em 0;
 
 `;
-export const Checkbox = styled.input`
-	width: 25px;
-	height: 25px;
+
+export const DoneButton = styled.button`
+	background: none;
+	border: none;
+	color: white;
+	font-size: 1.5rem;
+	cursor: pointer;
 `;
+
+
 export const TodoText = styled.p`
 	background: ${(props) => (props.done ? 'gray' : 'lightblue')};
 	width: 80%;

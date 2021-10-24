@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Form, Label, Select, Option } from './selectUser.styles';
+import { useDispatch } from 'react-redux';
+import { getCurrentUserId } from '../../src/redux/reducers/usersSlice';
 
-const SelectUser = ({ usersId, getUserTodos }) => {
+const SelectUser = ({ usersId }) => {
 	const [selectedUserId, setSelectedUserId] = useState(1);
-
 	function handleChange(e) {
 		setSelectedUserId(Number(e.target.value));
 	}
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		getUserTodos(selectedUserId);
+		dispatch(getCurrentUserId(selectedUserId));
 	}, [selectedUserId]);
 
 	return (

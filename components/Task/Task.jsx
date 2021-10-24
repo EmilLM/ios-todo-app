@@ -1,58 +1,21 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { Container, Checkbox, TodoText, RemoveButton } from './task.styles';
+import { Container, TodoText, RemoveButton, DoneButton } from './task.styles';
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
+import useTaskActions from '../../src/hooks/useTaskActions';
 
-const TodoItem = ({ todo, handleRemove }) => {
-	const { completed, title, id } = todo;
-	const [isChecked, setIsChecked] = useState(completed);
+const TodoItem = ({ todo }) => {
+	const { completed, title } = todo;
+	const { removeTask, finishTask } = useTaskActions();
 
-	function handleChange(e) {
-		setIsChecked(e.target.checked);
-		editTodo(id);
-	}
-
-	async function deleteTodo(id) {
-		try {
-			await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
-		} catch (err) {
-			console.log('delete error', err);
-		}
-	}
-
-	async function editTodo(id) {
-		try {
-			const res = await axios.patch(
-				`https://jsonplaceholder.typicode.com/todos/${id}`,
-				{
-					completed: isChecked,
-				},
-				{
-					headers: {
-						'Content-type': 'application/json; charset=UTF-8',
-					},
-				}
-			);
-		} catch (err) {
-			console.log('edit error', err);
-		}
-	}
-
-	function handleClick(id) {
-		handleRemove(id);
-		deleteTodo(id);
-	}
+	// removing by title instead of id because the api creates new todos with the same id (201)
+	// and removes all new todos at once, titles of new todos that arent the same are removed invidually  (functionality limited by the api, using it to create new todos and appending those)
 
 	return (
 		<Container>
-			<Checkbox
-				name='done'
-				type='checkbox'
-				checked={isChecked}
-				onChange={handleChange}
-			/>
-
+			<DoneButton onClick={() => finishTask(title)}>
+				{completed ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+			</DoneButton>
 			<TodoText done={completed}>{title}</TodoText>
-			<RemoveButton onClick={() => handleClick(id)}>X</RemoveButton>
+			<RemoveButton onClick={() => removeTask(title)}>X</RemoveButton>
 		</Container>
 	);
 };

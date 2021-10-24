@@ -1,57 +1,12 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-
 import Input from '../components/Input/Input';
 import SelectUser from '../components/SelectUser/SelectUser';
 import TodoList from '../components/TodoList/TodoList';
 import { Main, Content, Title } from '../components/index.styles';
-
 import axios from 'axios';
 
 export default function Home({ uniqueIds }) {
-	const [userTodos, setUserTodos] = useState([]);
-	const [currentUserId, setCurrentUserId] = useState(1);
-
-	async function getUserTodos(userId) {
-		try {
-			const { data } = await axios(
-				`https://jsonplaceholder.typicode.com/todos?userId=${userId}`
-			);
-
-			setUserTodos(data);
-			setCurrentUserId(userId);
-		} catch (err) {
-			console.log('getUserId tasks', err);
-		}
-	}
-
-	async function addTodos(input, userId) {
-		try {
-			const res = await axios.post(
-				'https://jsonplaceholder.typicode.com/todos',
-				{
-					completed: false,
-					userId: currentUserId,
-					title: input,
-				},
-				{
-					headers: {
-						'Content-type': 'application/json; charset=UTF-8',
-					},
-				}
-			);
-			setUserTodos([...userTodos, res.data]);
-		} catch (err) {
-			console.log('new task error', err);
-		}
-	}
-
-	function handleRemove(id) {
-		// since the api allows post/patch/delete but doesnt change
-		// I did the respective request but manually removed the deleted todo from global state
-		const remainingTodos = userTodos.filter((todo) => todo.id !== id);
-		setUserTodos(remainingTodos);
-	}
+	
 
 	return (
 		<>
@@ -64,9 +19,9 @@ export default function Home({ uniqueIds }) {
 			<Main>
 				<Title>TODO APP</Title>
 				<Content>
-					<SelectUser usersId={uniqueIds} getUserTodos={getUserTodos} />
-					<Input addTodos={addTodos} />
-					<TodoList todos={userTodos} handleRemove={handleRemove} />
+					<SelectUser usersId={uniqueIds} />
+					<Input />
+					<TodoList  />
 				</Content>
 			</Main>
 		</>

@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { Form, ClearButton, InputText, InputSubmit } from './input.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { todosAdded, addTodos } from '../../src/redux/reducers/todosSlice';
 
-const Input = ({ addTodos }) => {
+const Input = () => {
 	const [inputData, setInputData] = useState('');
+
+	const userId = useSelector((state) => state.users.userId);
 
 	function handleChange(e) {
 		setInputData(e.target.value);
 	}
+	const dispatch = useDispatch();
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		addTodos(inputData);
+		dispatch(addTodos({ title: inputData, completed: false, userId: userId }));
 		setInputData('');
 	}
 
