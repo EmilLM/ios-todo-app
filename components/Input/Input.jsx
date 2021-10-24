@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, ClearButton, InputText, InputSubmit } from './input.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { todosAdded, addTodos } from '../../src/redux/reducers/todosSlice';
+import { addTodos } from '../../src/redux/reducers/todosSlice';
 
 const Input = () => {
 	const [inputData, setInputData] = useState('');
@@ -21,6 +21,7 @@ const Input = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
+			{/* added clear state button just for ui symmetry */}
 			<ClearButton
 				onClick={(e) => {
 					e.preventDefault();

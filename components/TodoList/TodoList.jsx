@@ -26,7 +26,7 @@ const TodoList = () => {
 
 	useEffect(() => {
 		localStorage.setItem(userId, JSON.stringify(todos));
-	}, [todos]);
+	}, [todos, userId]);
 
 	return (
 		<Container>
